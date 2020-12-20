@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+/*
+冒泡排序每一轮比较都把当前数组最大一位放到最后
+arr=[5,2,6,4,3]
+第一轮i=0
+j=0 5->2比较  25643
+j=1 5->6比较  25643
+j=2 6->4比较  25463
+j=3 6->3比较  25436
+j=4 就是6和6比较 无需比较 这一轮 j的取值范围为 j<4 即 arr.length-1
+arr=[25436]
+第二轮 i=1
+j=0 2->5比较 25436
+j=1 5->4比较 24536
+j=2 5->3比较 24356
+j=3 5和6比较 无需比较 上一轮的结果就是把数组最大值放到最后一位 
+所以这一轮 j的取值范围为 j<3 即 arr.length-1-i
+*/	
+var bubbleSort=function(arr){
+	for(let i=0;i<arr.length-1;i++){
+		for(let j=0;j<arr.length-1-i;j++){
+			if(arr[j]>arr[j+1]){
+				let temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
+			}
+		}
+	}
+	return arr;
+}
+let arr=[5,2,6,4,3]
+console.log(bubbleSort(arr));
+
+/*
+插入排序（和打牌类似，先抓一张牌，之后每次抓都和手里的牌比较）
+arr=[5,2,6,4,3]
+再新开一个空数组handle存放最后的结果
+先把5放入handle=[5];
+从arr中取2，和5比较 比5小，放5左边  [2,5]
+再取6，比5大 放5右边  [2,5,6]
+再取4，和6比，比6小，和5比，比5还小，和2比，比2大，放25之间 [2,4,5,6]
+所以新抓的牌是从手里最后那张牌依次往前比，比谁大了就插谁后面，
+如果比第一张牌还小就插数组开头
+*/
+var insertSort=function(arr){
+	let handle=[];
+	handle.push(arr[0]);
+	for(let i=1;i<arr.length;i++){
+		let A=arr[i];
+		for(let j=handle.length-1;j>=0;j--){//每次从最后开始比较
+			let B=handle[j];
+			if(A>B){
+				handle.splice(j+1,0,A);
+				break;
+			}
+			if(j===0){
+				handle.unshift(A);
+			}
+			
+		}
+	}
+	return handle;
+}
+
+console.log(insertSort(arr));
+
+/*
+快速排序 
+取数组的中间值 
+比它大的放左边，小的放右边
+*/
+var fastSort=function(arr){
+	if(arr.length<=1){
+		return arr //结束递归的条件
+	}
+	let midIndex=Math.floor(arr.length/2);
+	let midValue=arr.splice(midIndex,1)[0];
+	let arrLeft=[];
+	let arrRight=[];
+	for(let i=0;i<arr.length;i++){
+		let item=arr[i];
+		item<midValue?arrLeft.push(item):arrRight.push(item);
+	}
+	return fastSort(arrLeft).concat(midValue,fastSort(arrRight));
+
+}
+
+console.log(fastSort(arr));
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
