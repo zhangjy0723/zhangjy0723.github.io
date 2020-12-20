@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+/*方法1：递归
+斐波那契数列 0,1,1,2,3
+*/
+var fab=function(n){
+	if(n<2) return n;
+	else{
+		return fab(n-1)+fab(n-2)
+	}
+}
+/*方法2
+数组记录
+*/
+var fab=function(n){
+	let dp=[];
+	dp[0]=0;
+	dp[1]=1;
+	for(let i=2;i<=n;i++){
+		dp[i]=dp[i-1]+dp[i-2];
+	}
+	return dp[n];
+}
+console.log(fab(3))
+</script>
+</html>
