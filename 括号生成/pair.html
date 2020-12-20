@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+/*括号生成
+	主要思路：左括号比右括号多，就能继续添加右括号
+	n表示生成多少对括号
+*/
+var generate = function(n) {
+    let res = [];
+    let test = (left, right, n, s) => {
+        if (left === n && right === n) {
+            return res.push(s);
+        }
+        if (left < n) {
+            test(left + 1, right, n, s + '(')
+        }
+        if (left > right) {
+            test(left, right + 1, n, s + ')')
+        }
+    }
+    test(0, 0, n, '');
+    return res;
+}
+console.log(generate(3));
+
+</script>
+
+</html>
